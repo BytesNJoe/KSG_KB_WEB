@@ -238,15 +238,17 @@
   .stat-card .l{margin-top:12px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 
   /* ---------- Disciplines ---------- */
-  .disc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .disc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;min-width:0}
   .disc-card{padding:18px 20px;border-radius:16px;display:flex;align-items:center;gap:14px;
+    min-width:0;
     transition:transform .35s var(--ease), box-shadow .35s, border-color .35s}
   .disc-card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.22);
     box-shadow:0 18px 44px rgba(0,0,0,.55)}
   .disc-card .dot-c{width:11px;height:11px;border-radius:50%;flex:none;box-shadow:0 0 10px currentColor}
-  .disc-card .nm{flex:1;font-weight:800;letter-spacing:.04em}
-  .disc-card .ct{font-family:var(--font-display);font-size:1.5rem;color:var(--text)}
-  .disc-card .u{font-size:.62rem;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-left:6px}
+  .disc-card .nm{flex:1;min-width:0;font-weight:800;letter-spacing:.04em;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .disc-card .ct{flex:none;font-family:var(--font-display);font-size:1.5rem;color:var(--text)}
+  .disc-card .u{flex:none;font-size:.62rem;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-left:6px}
 
   /* ---------- Steps list ---------- */
   .steps{display:grid;gap:12px;margin-top:24px}
@@ -331,6 +333,8 @@
     .agenda-item{padding:16px 18px;gap:14px}
     .num-badge{width:36px;height:36px;font-size:.95rem}
     .hint{font-size:.64rem;letter-spacing:.12em}
+    .disc-grid{grid-template-columns:1fr}
+    .disc-card{padding:14px 18px}
   }
 
   /* reduce animation weight on touch devices to avoid jank from stacked blur/backdrop-filter */
