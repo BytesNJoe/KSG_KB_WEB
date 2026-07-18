@@ -54,7 +54,7 @@
 
   <h2>4. Mikrofon und Spracherkennung</h2>
   <p>Die optionale Sprachsteuerung des Kampfrunden-Timers benötigt Zugriff auf das Mikrofon und die Spracherkennungsfunktion des Betriebssystems. Die Berechtigungen werden erst angefragt, wenn die Funktion verwendet wird.</p>
-  <p>Gesprochene Timer-Befehle werden durch den auf dem Gerät verfügbaren Spracherkennungsdienst verarbeitet. Abhängig von Gerät, Betriebssystem, Spracheinstellungen und ausgewähltem Dienst kann diese Verarbeitung lokal erfolgen oder eine Übertragung an den jeweiligen Plattform- beziehungsweise Spracherkennungsanbieter erfordern. Für die Verarbeitung durch Apple gelten ergänzend die Datenschutzbestimmungen und Geräteeinstellungen von Apple.</p>
+  <p>Gesprochene Timer-Befehle werden durch den auf dem Gerät verfügbaren Spracherkennungsdienst verarbeitet. Abhängig von Gerät, Betriebssystem, Spracheinstellungen und ausgewähltem Dienst kann diese Verarbeitung lokal erfolgen oder eine Übertragung an den jeweiligen Plattform- beziehungsweise Spracherkennungsanbieter erfordern. Je nach Plattform gelten ergänzend die Datenschutzbestimmungen und Geräteeinstellungen des jeweiligen Anbieters (Apple bei iOS, Google bei Android).</p>
   <p>Die App verwendet das erkannte Ergebnis zur Konfiguration des Timers. Der Anbieter der KSG-App speichert oder empfängt nach aktuellem technischen Stand weder die Audioaufnahme noch das erkannte Transkript über ein eigenes Backend.</p>
   <p>Die Sprachsteuerung ist optional. Wird die Berechtigung abgelehnt, bleiben die übrigen App-Funktionen nutzbar und der Timer kann manuell bedient werden.</p>
 
@@ -64,12 +64,12 @@
   <div class="todo-block"><b>OFFEN</b>Vor Veröffentlichung am finalen Build erneut prüfen.</div>
 
   <h2>6. Berechtigungen</h2>
-  <p>Die iOS-App kann folgende optionale Systemberechtigungen anfragen:</p>
+  <p>Die App kann folgende optionale Systemberechtigungen anfragen:</p>
   <ul>
     <li><strong>Mikrofon:</strong> Aufnahme eines gesprochenen Timer-Befehls;</li>
     <li><strong>Spracherkennung:</strong> Umwandlung des gesprochenen Befehls in Text.</li>
   </ul>
-  <p>Die Berechtigungen können jederzeit in den iOS-Einstellungen geändert werden.</p>
+  <p>Die Berechtigungen können jederzeit in den Einstellungen des jeweiligen Betriebssystems (iOS bzw. Android) geändert werden.</p>
 
   <h2>7. Empfänger und Drittanbieter</h2>
   <p>Der Anbieter betreibt nach aktuellem Stand keinen Server, der persönliche Nutzungs-, Trainings- oder Sprachdaten der App empfängt. Eine Verarbeitung durch Betriebssystem- oder externe Dienste kann nur bei der ausdrücklich ausgelösten Nutzung der Spracherkennung beziehungsweise beim Öffnen eines externen YouTube-Links stattfinden.</p>
