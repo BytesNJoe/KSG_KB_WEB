@@ -285,13 +285,27 @@
 
   /* ---------- Final ---------- */
   .platforms{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
-  .final-close{margin-top:34px;font-size:1rem;line-height:1.8;color:var(--muted);max-width:62ch}
-  .kbd-note{margin-top:40px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#63636e}
+
+  /* ---------- Ende ---------- */
+  .end-cta{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+    padding:16px 30px;border-radius:16px;font-weight:700;font-size:.95rem;
+    transition:transform .3s var(--ease), border-color .3s, background .3s, box-shadow .3s}
+  .end-cta:hover{transform:translateY(-3px);border-color:rgba(225,25,49,.55);
+    background:rgba(225,25,49,.08);box-shadow:0 14px 44px rgba(225,25,49,.22)}
 
   /* ---------- Responsive ---------- */
   @media (max-width:1000px){
-    .slide{padding:70px 26px 80px}
-    .slide-inner{grid-template-columns:1fr;gap:30px;text-align:center;justify-items:center}
+    .slide{
+      padding:calc(70px + env(safe-area-inset-top)) 26px calc(80px + env(safe-area-inset-bottom));
+      align-items:flex-start;
+      overflow-y:auto;
+      -webkit-overflow-scrolling:touch;
+      overscroll-behavior-y:contain;
+      touch-action:pan-y;
+      scrollbar-width:none;
+    }
+    .slide::-webkit-scrollbar{display:none}
+    .slide-inner{grid-template-columns:1fr;gap:30px;text-align:center;justify-items:center;margin:auto 0}
     .lede{margin-inline:auto}
     .phone{width:min(220px,52vw)}
     .video-frame{width:min(560px,88vw)}
@@ -305,9 +319,15 @@
   @media (max-width:640px){
     .brand{gap:0}
     .brand span:not(.mark){display:none}
-    .slide{padding:64px 20px 90px}
+    .slide{padding:calc(64px + env(safe-area-inset-top)) 20px calc(90px + env(safe-area-inset-bottom))}
+    .slide-inner{gap:22px}
     .display-xl{font-size:clamp(2.4rem,11vw,4rem)}
     .display-l{font-size:clamp(1.7rem,7vw,2.6rem)}
+    .lede{font-size:.92rem;line-height:1.6}
+    .phone{width:min(190px,50vw)}
+    .phone-caption{margin-top:14px}
+    .feat-list{gap:12px;margin-top:18px}
+    .steps{gap:9px;margin-top:16px}
     .agenda-item{padding:16px 18px;gap:14px}
     .num-badge{width:36px;height:36px;font-size:.95rem}
     .hint{font-size:.64rem;letter-spacing:.12em}
@@ -336,7 +356,7 @@
 <nav class="dots" id="dots" aria-label="Foliennavigation"></nav>
 <div class="hint" id="hint">
   <span class="kbd-only"><kbd>←</kbd><kbd>→</kbd><span>Pfeiltasten · Scrollen</span></span>
-  <span class="touch-only">Wischen für weiter</span>
+  <span class="touch-only">← Wischen für weiter · ↕ Scrollen für mehr</span>
 </div>
 <div class="arrows">
   <button class="arrow-btn" id="btnPrev" aria-label="Vorherige Folie">←</button>
@@ -614,9 +634,18 @@
           <span class="chip"><span class="d"></span>🍏 iOS</span>
           <span class="chip"><span class="d"></span>🌐 Web / Browser</span>
         </div>
-        <p class="final-close" data-a="5" style="margin-inline:auto">Kampf ▪ Sport ▪ Guide wurde speziell für die Kampfsport-Schule Essen entwickelt und wächst mit jedem Trainingsjahr weiter — als gemeinsames Nachschlagewerk für Vorstand, Trainer und Mitglieder gleichermaßen.</p>
-        <h2 data-a="6" style="margin-top:34px;font-size:clamp(1.8rem,3.4vw,2.8rem)"><span class="grad">Danke — und gutes Training! 🥊</span></h2>
-        <p class="kbd-note" data-a="7">↑ Mit ← / Home zurück zum Anfang</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 · Ende -->
+  <section class="slide" data-title="Ende">
+    <div class="slide-inner single">
+      <div style="width:min(760px,100%)">
+        <p class="eyebrow" data-a="1" style="justify-content:center;display:flex">Kampf ▪ Sport ▪ Guide</p>
+        <h2 class="display-xl" data-a="2"><span class="grad">Danke.</span></h2>
+        <p class="cover-sub" data-a="3" style="margin-inline:auto">Und gutes Training, KSG! 🥊<br>Fragen, Ideen oder Feedback? Immer gerne an den Vorstand.</p>
+        <div class="end-cta glass" data-a="4" data-goto="0" style="margin:36px auto 0">↺ Zurück zum Anfang</div>
       </div>
     </div>
   </section>
@@ -734,11 +763,14 @@
     touchX = e.touches[0].clientX;
   }, { passive: true });
   addEventListener('touchend', e => {
-    if (touchY === null) return;
-    const dy = touchY - e.changedTouches[0].clientY;
+    if (touchX === null) return;
     const dx = touchX - e.changedTouches[0].clientX;
-    const d = Math.abs(dy) > Math.abs(dx) ? dy : dx;
-    if (Math.abs(d) > 55) d > 0 ? next() : prev();
+    const dy = touchY - e.changedTouches[0].clientY;
+    // Only horizontal swipes change slides — vertical drags scroll the (possibly
+    // overflowing) slide content natively instead.
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      dx > 0 ? next() : prev();
+    }
     touchY = touchX = null;
   }, { passive: true });
 
@@ -746,7 +778,7 @@
   document.getElementById('btnNext').addEventListener('click', next);
   document.getElementById('btnPrev').addEventListener('click', prev);
   document.querySelectorAll('[data-goto]').forEach(el =>
-    el.addEventListener('click', () => goTo(+el.dataset.goto, 1)));
+    el.addEventListener('click', () => goTo(+el.dataset.goto)));
 
   // Subtle parallax on mouse move
   const orbs = document.querySelectorAll('.orb');
