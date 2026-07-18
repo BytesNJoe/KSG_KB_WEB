@@ -258,6 +258,30 @@
   .reveal.in{ opacity:1; transform:none; }
   .disc-card.reveal, .mini3.reveal{ transition-delay:var(--rd,0s); }
 
+  /* ---------- directional / scale reveal variants (mobile-forward motion) ---------- */
+  .reveal-left, .reveal-right, .reveal-scale{ transition:opacity .75s cubic-bezier(.2,.7,.2,1), transform .75s cubic-bezier(.2,.7,.2,1); }
+  .reveal-left{ opacity:0; transform:translateX(-26px); }
+  .reveal-right{ opacity:0; transform:translateX(26px); }
+  .reveal-scale{ opacity:0; transform:scale(.93) translateY(14px); }
+  .reveal-left.in, .reveal-right.in, .reveal-scale.in{ opacity:1; transform:none; }
+  @media (max-width:720px){
+    .reveal-left{ transform:translateX(-42px); }
+    .reveal-right{ transform:translateX(42px); }
+    .reveal-scale{ transform:scale(.9) translateY(20px); }
+  }
+
+  /* ---------- chapter underline draw-in ---------- */
+  .chapter-title{ position:relative; display:inline-block; }
+  .chapter-title::after{
+    content:""; position:absolute; left:0; bottom:-6px; height:3px; width:0%;
+    background:var(--accent-bright); transition:width .8s cubic-bezier(.2,.7,.2,1) .15s;
+  }
+  .chapter-head.in .chapter-title::after{ width:64px; }
+
+  /* ---------- scroll parallax on phone/shot visuals (subtle depth, most noticeable on mobile) ---------- */
+  .feature-visual.parallax .phone,
+  .feature-visual.parallax .shot-frame{ will-change:transform; }
+
   /* ---------- eyecatchers ---------- */
   .hero-eyebrow::before{ display:inline-block; animation:pulse-dot 2.2s ease-in-out infinite; }
   .mic-dot{ animation:pulse-dot 1.6s ease-in-out infinite; }
@@ -284,9 +308,11 @@
   .tag{ transition:border-color .2s ease, color .2s ease; }
 
   @media (prefers-reduced-motion: reduce){
-    .reveal{ opacity:1; transform:none; transition:none; }
+    .reveal, .reveal-left, .reveal-right, .reveal-scale{ opacity:1; transform:none; transition:none; }
     .hero-eyebrow::before, .mic-dot{ animation:none; }
     .disc-card, .disc-card .dc-dot, .phone, .shot-frame img, .platform-chip{ transition:none; }
+    .chapter-title::after{ width:64px; transition:none; }
+    .feature-visual.parallax .phone, .feature-visual.parallax .shot-frame{ transform:none !important; }
   }
 </style>
 
@@ -353,13 +379,13 @@
         <p class="chapter-lede">Jede Technik, die im KSG unterrichtet wird, ist sauber dokumentiert — mit Beschreibung, Schritt-für-Schritt-Anleitung und passendem Video.</p>
       </div>
 
-      <div class="feature reveal">
-        <div>
+      <div class="feature">
+        <div class="reveal-left">
           <div class="feature-eyebrow">Sechs Disziplinen unter einem Dach</div>
           <h3>Alle KSG-Sportarten, eine App</h3>
           <p>BJJ, Boxen, K1, Luta Livre, MMA und Muay Thai — jede Disziplin hat ihre eigene Technikbibliothek, ihre eigene Farbe und ihre eigene Gürtel- bzw. Graduierungsübersicht. Mitglieder finden ihren Sport sofort wieder.</p>
         </div>
-        <div class="feature-visual">
+        <div class="feature-visual reveal-right parallax">
           <div class="phone">
             <div class="screen shot">
               <img src="screenshots/home-combat-sports.jpeg" alt="Startbildschirm-Ausschnitt mit den Kampfsport-Disziplinen Boxen, K1, Luta Livre, MMA und Muay Thai" />
@@ -401,14 +427,14 @@
         </div>
       </div>
 
-      <div class="feature rev reveal">
-        <div>
+      <div class="feature rev">
+        <div class="reveal-right">
           <div class="feature-eyebrow">Technik-Bibliothek</div>
           <h3>Erklärt, in Schritte zerlegt, verlinkt</h3>
           <p>Jede der 283 Techniken erklärt das Prinzip in einfachen Worten, führt in fünf Schritten durch die Ausführung und verlinkt direkt zu einem passenden Video-Tutorial. Dazu kommt eine eigene Notiz je Technik — Platz für den persönlichen Trainings-Tipp oder das Feedback vom Trainer.</p>
           <p class="fine">Beispiel rechts: Anaconda Choke, Luta Livre · Kategorie „Submission“</p>
         </div>
-        <div class="feature-visual">
+        <div class="feature-visual reveal-left parallax">
           <div class="phone">
             <div class="screen shot">
               <img src="screenshots/technique-detail-anaconda-choke.jpeg" alt="Technikdetail Anaconda Choke mit Beschreibung, fünf Ausführungsschritten, eigener Notiz und Video-Link" />
@@ -417,14 +443,14 @@
         </div>
       </div>
 
-      <div class="feature reveal">
-        <div>
+      <div class="feature">
+        <div class="reveal-left">
           <div class="feature-eyebrow">Für den schnellen Zugriff</div>
           <h3>Technik des Tages &amp; globale Suche</h3>
           <p>Direkt oben auf jeder Sport-Seite wartet die „Technique of the Day“ — ein Tippen auf ROLL zeigt eine zufällige Technik zur Inspiration, einzelne Techniken lassen sich davon dauerhaft ausschließen. Darunter sitzt die Suche mit Kategorie-Filtern wie Defense, Leg Lock oder Movement, die die Liste in Echtzeit eingrenzt.</p>
           <p class="fine">Beispiel: Luta Livre, Reiter „Techniken“</p>
         </div>
-        <div class="feature-visual">
+        <div class="feature-visual reveal-right parallax">
           <div class="phone">
             <div class="screen shot">
               <img src="screenshots/sport-lutalivre-techniken.jpeg" alt="Techniken-Reiter der Sportart Luta Livre mit Technique of the Day, Suche, Kategorie-Filtern und Technikliste" />
@@ -444,13 +470,13 @@
         <p class="chapter-lede">Wissen ist mehr als eine Liste von Techniken. Lernpfade und der Gameplan-Graph zeigen, wie alles zusammenhängt — und wie weit der eigene Fortschritt schon reicht.</p>
       </div>
 
-      <div class="feature reveal">
-        <div>
+      <div class="feature">
+        <div class="reveal-left">
           <div class="feature-eyebrow">Lernpfade</div>
           <h3>Der rote Faden durchs Training</h3>
           <p>Kuratierte Lernpfade führen Schritt für Schritt durch jede Disziplin — von den Grundlagen am Boden über Takedowns bis zu den ersten Submissions. Sobald eine Technik im Trainings-Tagebuch protokolliert wird, hakt die App sie automatisch im passenden Lernpfad ab — Fortschritt entsteht nebenbei, ganz ohne doppelte Arbeit.</p>
         </div>
-        <div class="feature-visual">
+        <div class="feature-visual reveal-right parallax">
           <div class="phone">
             <div class="screen shot">
               <img src="screenshots/lernpfade.jpeg" alt="Lernpfade-Ansicht Luta Livre mit Ground Game, Takedowns und Submissions inklusive Fortschrittsbalken" />
@@ -459,14 +485,14 @@
         </div>
       </div>
 
-      <div class="feature rev reveal">
-        <div>
+      <div class="feature rev">
+        <div class="reveal-right">
           <div class="feature-eyebrow">Gameplan</div>
           <h3>Wie ein Positionsplan, den man anfassen kann</h3>
           <p>Jede Disziplin bringt eine geordnete Rangliste der wichtigsten Bodenpositionen mit — von Back Control als stärkster bis zu den defensiven Positionen — und zeigt zu jeder Position die zugehörigen Submissions. Der Gameplan macht diese Struktur als interaktiven Beziehungs-Graphen sichtbar: frei zoom- und verschiebbar, mit Filtern nach Kategorie, tippbar bis auf die einzelne Technik.</p>
           <p class="fine">Beispiel: Luta-Livre-Gameplan mit 78 Punkten und 174 Verbindungen</p>
         </div>
-        <div class="feature-visual" style="width:100%;">
+        <div class="feature-visual reveal-scale parallax" style="width:100%;">
           <div class="shot-frame">
             <img src="screenshots/gameplan-graph.jpeg" alt="Interaktiver Gameplan-Graph für Luta Livre mit Positionen wie Back Control, Mount und Side Control sowie ihren Submissions" />
           </div>
@@ -484,13 +510,13 @@
         <p class="chapter-lede">Von der protokollierten Einheit bis zum Rundentimer am Sandsack — alles, was das eigentliche Training begleitet.</p>
       </div>
 
-      <div class="feature reveal">
-        <div>
+      <div class="feature">
+        <div class="reveal-left">
           <div class="feature-eyebrow">Trainings-Tagebuch</div>
           <h3>Jede Einheit in Sekunden protokolliert</h3>
           <p>Disziplin, Trainingsart — Sparring, Drilling, Technik, Kondition oder Wettkampf —, Dauer und eine kurze Bewertung reichen. Die App errechnet daraus automatisch die Trainings-Streak, das Wochenvolumen und die am häufigsten trainierten Techniken.</p>
         </div>
-        <div class="feature-visual" style="width:100%;">
+        <div class="feature-visual reveal-scale" style="width:100%;">
           <div class="panel" style="width:100%;">
             <div class="stat-tiles">
               <div class="tile"><b>12</b><span>Tage Streak</span></div>
@@ -512,14 +538,14 @@
         </div>
       </div>
 
-      <div class="feature rev reveal">
-        <div>
+      <div class="feature rev">
+        <div class="reveal-right">
           <div class="feature-eyebrow">Rundentimer mit Sprachsteuerung</div>
           <h3>Der Trainingspartner, der zuhört</h3>
           <p>Ein vollwertiger Rundentimer für Sparring, Pratzentraining und Kondition — mit fertigen Presets für Boxen/Muay Thai, MMA und Grappling oder frei konfigurierbar über Runden, Rundenzeit und Pause. Am Sandsack besonders praktisch: Die Sprachsteuerung versteht gesprochenes Deutsch, ganz ohne die Hände vom Training zu nehmen.</p>
           <div class="mic-chip" style="margin-top:8px;"><span class="mic-dot"></span>„5 Runden, 3 Minuten, 1 Minute Pause“</div>
         </div>
-        <div class="feature-visual">
+        <div class="feature-visual reveal-left parallax">
           <div class="phone">
             <div class="screen shot">
               <img src="screenshots/timer-portrait.jpeg" alt="Rundentimer-Konfiguration mit 3-Minuten-Runden, 1-Minute-Pause, 5 Runden und Preset Boxen/Muay Thai" />
@@ -528,7 +554,7 @@
         </div>
       </div>
 
-      <div class="sub-block center-narrow reveal">
+      <div class="sub-block center-narrow reveal-scale">
         <div class="video-panel">
           <video controls preload="metadata" poster="screenshots/timer-landscape-active.jpeg">
             <source src="screenshots/TimerInAction.mp4" type="video/mp4" />
@@ -537,13 +563,13 @@
         <p class="shot-cap">▶ Video abspielen — der Timer im Querformat, live im Kampf-Modus</p>
       </div>
 
-      <div class="feature reveal">
-        <div>
+      <div class="feature">
+        <div class="reveal-left">
           <div class="feature-eyebrow">Kraft &amp; Kettlebell</div>
           <h3>Kraft &amp; Beweglichkeit</h3>
           <p>35 Bodyweight- und 19 Kettlebell-Übungen stehen bereit — sortiert nach Kraft, Core, Explosivität, Mobilität und kampfsport-spezifischen Bewegungen. Ideal für das Training zuhause oder als Ergänzung im Gym.</p>
         </div>
-        <div class="feature-visual">
+        <div class="feature-visual reveal-right parallax">
           <div class="phone">
             <div class="screen shot">
               <img src="screenshots/home-power-athletic.jpeg" alt="Startbildschirm-Ausschnitt Power & Athletic mit Functional Strength und Kettlebell Power" />
@@ -552,7 +578,7 @@
         </div>
       </div>
 
-      <div class="panel sub-block reveal">
+      <div class="panel sub-block reveal-scale">
         <div class="cat-block">
           <h5>Bodyweight · 35 Übungen</h5>
           <div class="cat-chip-row">
@@ -630,8 +656,9 @@
 <script>
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  var revealSelector = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .chapter-head';
   if (!reduceMotion && 'IntersectionObserver' in window) {
-    var els = document.querySelectorAll('.reveal');
+    var els = document.querySelectorAll(revealSelector);
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
@@ -639,7 +666,31 @@
     }, { threshold: 0.08 });
     els.forEach(function (el) { io.observe(el); });
   } else {
-    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    document.querySelectorAll(revealSelector).forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* ---------- subtle scroll parallax for phone/shot visuals ---------- */
+  if (!reduceMotion) {
+    var isMobile = window.matchMedia('(max-width:720px)').matches;
+    var maxShift = isMobile ? 16 : 9;
+    var parallaxEls = Array.prototype.slice.call(document.querySelectorAll('.parallax > .phone, .parallax > .shot-frame'));
+    var ticking = false;
+    function updateParallax() {
+      var vh = window.innerHeight;
+      parallaxEls.forEach(function (el) {
+        var rect = el.getBoundingClientRect();
+        var center = rect.top + rect.height / 2;
+        var offset = ((center - vh / 2) / vh) * maxShift;
+        el.style.transform = 'translateY(' + offset.toFixed(1) + 'px)';
+      });
+      ticking = false;
+    }
+    function onScrollParallax() {
+      if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
+    }
+    document.addEventListener('scroll', onScrollParallax, { passive: true });
+    window.addEventListener('resize', onScrollParallax);
+    updateParallax();
   }
 
   var bar = document.getElementById('progressBar');
